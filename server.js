@@ -1,4 +1,4 @@
-const { Pool } = require('pg')
+/*const { Pool } = require('pg')
 
 
 const proofQuery = async () => {
@@ -24,4 +24,6 @@ const proofQuery = async () => {
 } 
 
 module.exports = { proofQuery }
+
+*/
 

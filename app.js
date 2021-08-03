@@ -1,18 +1,37 @@
 const express = require('express')
-const { proofQuery } = require('./server')
+const { Pool } = require('pg')
+
+//const { proofQuery } = require('./server')
 
 const app = express()
 
 const PORT = 3000
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
     try {
-        res.send('Estamos trabajando')
+        const pool = new Pool({
+            user: 'postgres',
+            host:"postgresnnn",
+            database: "postgres",
+            password: "viviana14",
+            port: 5432
+        })
+        
+        await pool.connect()
+
+        let createTable = await pool.query('CREATE TABLE IF NOT EXISTS createYesExist (id serial, name varchar(30), lastname varchar(30))')
+        let createUser = await pool.query("insert into createYesExist (name, lastname) values ('Humberto', 'Mesa Mesa')")
+        console.log(createUser.rows)
+        let result = await pool.query('select * from createYesExist')
+
+        //console.log(result.rows)
+        res.json(result.rows)
+
     } catch (error) {
         console.log(error)
+
     }
 })
-
-proofQuery()
+//proofQuery()
 
 app.listen(PORT, () => {
     console.log('Estamos trabjando sobre el puerto ' + PORT)
