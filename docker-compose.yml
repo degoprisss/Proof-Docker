@@ -1,0 +1,32 @@
+version: "3.8"  # optional since v1.27.0
+services:
+  node:
+    container_name: "nodejspost"
+    build: .
+    image: node
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=viviana14
+      - POSTGRES_DB= porfin
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - 5000:3000
+    networks:
+      - default  
+    links: 
+      - postgres:latest
+  postgres:
+    container_name: "postgresnnn"
+    image: 'postgres:latest'
+    restart: always
+    volumes:
+      - 'db_persdata:/usr/src/app'
+    environment:
+      - POSTGRES_PASSWORD=viviana14
+    ports:
+      - '5434:5432' 
+    networks:
+      - default  
+volumes:
+  db_persdata: 
